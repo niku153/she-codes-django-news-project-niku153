@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Create Account</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Account</button>
+</form>
+{% endblock %}
+
+<!--newaccount, seconduser@example.com, qwerty345@-->
+
+<!--cross site request forgery - security feature. Makes it harder for people to steal your credentials/trick you into clicking on their website?? -->
+
+<!-- Most viewed stories, what's new, welcome message, keyword/title search function, favourites/saved/read, history of read stories, share function, related stories, comments, bookmarks, tags, ratings, sorting, accessibility?. Ratings, tags, top content, bookmarks, search, share on social media - easy. ratings - harder-->
