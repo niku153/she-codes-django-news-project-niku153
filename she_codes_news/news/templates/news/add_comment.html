@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Create A New Blog Post {% endblock %}
+{% block title %} Comment on Blog Post {% endblock %}
 {% load static %} {% block stylesheets %}
 <head>
 <link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}" />
@@ -11,17 +11,17 @@
 {% endblock %} {% block content %}
 
 
-<form action="" method="post" class="create-story-form">
+<form action="" method="post" class="add-comment-form">
 
     {% csrf_token %}
-    <h2>New blog post</h2>
+    <h2>Add A Comment</h2>
     <div class="form-wrapper">
     {{ form.as_p }}
-    <input type="submit" value="Submit" class="accent-button">
-    <a href="{% url 'news:index' %}" class="accent-button">Back</a>
     </div>
-
+    <button class="accent-button">Add Comment</button>
+    <a href="{% url 'news:index' %}" class="accent-button">Back</a>
 </form>
+
 
 
 {% endblock %}

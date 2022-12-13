@@ -1,16 +1,51 @@
-{% extends "base.html" %}{% load static %}{% block stylesheets %}<link
-  rel="stylesheet"
-  type="text/css"
-  href="{% static 'news/styles.css' %}"
-/>{% endblock %}{% block content %}
+{% extends "base.html" %}{% load static %}{% block stylesheets %}<head>
+<link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400&display=swap" rel="stylesheet">
+</head>{% endblock %}{% block content %}
 
 <div id="story-wrapper">
-  <h2>{{ story.title }}</h2>
-  <h4>{{ story.author }}</h4>
-  <div id="story-content">
-    <img src="{% static '/news/images/placeholder-5.jpg' %}" />
-    {{ story.content|linebreaks }}
+  {% if story.author == user.username%}
+  <div class="story-buttons">
+    <a href=" {% url 'news:editStory' story.id %}" class="accent-button">Edit Story</a>
+    <a href=" {% url 'news:deleteStory' story.id %}" class="accent-button ">Delete Story</a>
   </div>
+  {% endif %}
+
+  <h2>{{ story.title }}</h2>
+  
+  <div id="story-content">
+    {% if not story.image_url %}
+      <img src="https://picsum.photos/600">
+    {% else %}
+      <img src="{{ story.image_url }}" />
+    {% endif %}
+    <p>{{ story.content|linebreaks }}</p>
+  </div>
+  <a href="#" class="story-author">Written by {{ story.author }}</a>
+  <a href='{% url "news:category" story.category %}' class="category-button accent-button">{{ story.category }}</a>
+</div>
+<div class="comments-wrapper">
+  <h3>Comments</h3>
+  {% if not story.comments.all %}
+    <p>No comments yet</p>
+    <a href="{% url 'news:addComment' story.id %}" class="accent-button">Add comment</a>
+  {% else %}
+    <a href="{% url 'news:addComment' story.id %}" class="accent-button">Add comment</a>
+      {% for comment in story.comments.all %}
+      <div class="comment-wrapper">
+        <p class="comment-details">
+          {{ comment.name }} - {{ comment.date_added }}
+        </p>
+        <p class="comment-body">
+          {{ comment.body }}
+        </p>
+      </div>
+    {% endfor %}
+  {% endif %}
 </div>
 
 {% endblock %}
+
+<!--views, url, html--> 

@@ -1,5 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse
+
+class Category(models.Model):
+    name = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.name
+
 
 
 class NewsStory(models.Model):
@@ -13,4 +21,18 @@ class NewsStory(models.Model):
     author = models.CharField(max_length=200)
     pub_date = models.DateTimeField()
     content = models.TextField()
+    image_url = models.URLField(null=True)
+    category = models.CharField(max_length=200, default='uncategorised')
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(NewsStory, related_name='comments', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '%s - %s' % (self.post.title, self.name)
+
+
 

@@ -1,11 +1,27 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %} Create A New Account {% endblock %}
+{% load static %} {% block stylesheets %}
+<head>
+<link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400&display=swap" rel="stylesheet">
+</head>
 
-{% block content %}
+{% endblock %} {% block content %}
 <h2>Create Account</h2>
 <form method="post">
     {% csrf_token %}
+    <div class="form-wrapper">
     {{ form.as_p }}
-    <button type="submit">Create Account</button>
+    {% if request.user.is_authenticated %}
+        <button type="submit" class="accent-button">Save</button>
+    {% else %}
+        <button type="submit" class="accent-button">Create Account</button>
+    {% endif %}
+    </div>
+
+
 </form>
 {% endblock %}
 
