@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+from users.models import CustomUser
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
@@ -18,11 +19,12 @@ class NewsStory(models.Model):
         get_user_model(),
         on_delete=models.CASCADE
     )
-    author = models.CharField(max_length=200)
+    # author = models.CharField(max_length=200)
     pub_date = models.DateTimeField()
     content = models.TextField()
     image_url = models.URLField(null=True)
     category = models.CharField(max_length=200, default='uncategorised')
+    liked_by = models.ManyToManyField(CustomUser, related_name='liked_stories', blank=True, null=True )
 
 
 class Comment(models.Model):

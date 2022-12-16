@@ -285,3 +285,76 @@ form{
     width: 400px;
     font-size: 17px;
 }
+
+.profile-wrapper h2{
+    font-size: 30px;
+    color: var(--body-text-colour);
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.profile-wrapper .profile-picture{
+    width: 250px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 50%;
+
+}
+
+.profile-wrapper .profile-bio{
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    font-family: var(--body-font-family);
+    color: var(--body-text-colour);
+    margin-top: 50px;
+    color: var(--body-text-colour);
+    max-width: 600px;
+}
+
+.profile-wrapper .contact-icons{
+    list-style-type: none;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    padding: 0;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.profile-wrapper .contact-icons li{
+    display: inline;
+    font-size: 30px;
+    padding: 10px;
+}
+
+.profile-wrapper .contact-icons li a{
+    color: var(--heading-text-colour) 
+}
+
+.profile-wrapper .contact-icons li a:visited{
+    color: var(--heading-text-colour)
+}
+
+.profile-wrapper .contact-icons li a:hover{
+    color: var(--accent-colour);
+    transition: 0.5s;
+}
+
+.profile-wrapper h4{
+    color: var(--heading-text-colour);
+    font-family: var(--heading-font-family);
+    margin-left: 100px;
+    font-size: 20px;
+}
+
+.profile-wrapper #all-stories{
+    margin-top: 100px;
+}
+
+.profile-wrapper .accent-button{
+    margin: 0 auto;
+    display: block;
+    width: fit-content;
+    margin-top: 50px;
+}

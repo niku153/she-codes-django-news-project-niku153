@@ -1,8 +1,9 @@
 from django.views import generic
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from .models import NewsStory, Comment, Category
 from .forms import StoryForm, CommentForm
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 
 
 class IndexView(generic.ListView):
@@ -36,6 +37,17 @@ class AddStoryView(generic.CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+@login_required
+def like_post(request, pk):
+    story = get_object_or_404(NewsStory, pk=pk)
+    user = request.user
+    if story.liked_by.filter(id=user.id).exists():
+        story.liked_by.remove(user)
+    else:
+        story.liked_by.all(user)
+    return redirect('news:story', pk=story.id)
+
+
 def CategoryView(request, cats):
     category_posts = NewsStory.objects.filter(category=cats)
     return render(request, 'news/categories.html', {'cats':cats, 'category_posts':category_posts})
@@ -55,6 +67,8 @@ class AddCommentView(generic.CreateView):
     form_class = CommentForm
     template_name = 'news/add_comment.html'
     success_url = reverse_lazy('news:index')
+    # def get_success_url(self):
+    #     return reverse_lazy('news:story', kwargs={'pk': self.object.id})
 
     def form_valid(self, form):
         form.instance.post_id = self.kwargs['pk']

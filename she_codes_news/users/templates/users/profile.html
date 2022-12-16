@@ -1,29 +1,54 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="profile-wrapper">
+<h2>{{ user.name|capfirst }}</h2>
+{% if not user.profile_picture %}
+      <img src="https://picsum.photos/600" class="profile-picture">
+    {% else %}
+      <img src="{{ user.profile_picture }}" class="profile-picture"/>
+    {% endif %}
+<p class="profile-bio">{{ user.bio }}</p>
+<div>
+    <ul class="contact-icons">
+        {% if not user.email %}
+          <li><a href="#"><i class="fa-solid fa-envelope"></i></a></li>
+        {% else %}
+          <li><a href="mailto:{{ user.email }}"><i class="fa-solid fa-envelope"></i></a></li>
+        {% endif %}
+        {% if not user.linkedin %}
+          <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+        {% else %}
+          <li><a href="{{ user.linkedin }}"><i class="fa-brands fa-linkedin"></i></a></li>
+        {% endif %}
+        {% if not user.instagram %}
+          <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+        {% else %}
+          <li><a href="{{ user.instagram }}"><i class="fa-brands fa-instagram"></i></a></li>
+        {% endif %}
+        {% if not user.github %}
+          <li><a href="#"><i class="fa-brands fa-github"></i></a></li>
+        {% else %}
+          <li><a href="{{ user.github }}"><i class="fa-brands fa-github"></i></a></li>
+        {% endif %}
 
-<h2>Hi {{ user.name|capfirst }}!</h2>
-<p>Username: {{ user.username }}</p>
-<p>{{ user.bio }}</p>
-<div>Contact:
-    <ul>
-        <li><a href="#">Email</a></li>
-        <li><a href="#">LinkedIn</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">GitHub</a></li>
     </ul>
 </div>
 
-<div id="latest-stories">
+<div id="all-stories">
+  <h4>Stories by {{user.name|capfirst}}</h4>
+
   {% if stories %} 
   {% for story in stories %} 
-    {% include "./storyCard.html" with story=story position=forloop.counter %}
+    {% include "news/storyCard.html" with story=story position=forloop.counter %}
   {% endfor %} {% else %}
   <p>No stories are available.</p>
   {% endif %}
 </div>
-
-<a href="{% url 'users:editAccount' request.user.id %}">Edit Account</a>
+{#{% if user.profile == user.username %}#}
+  <a href="{% url 'users:editAccount' request.user.id %}" class="accent-button">Edit Account</a>
+{#{% endif %}#}
+</div>
 
 
 {% endblock %}

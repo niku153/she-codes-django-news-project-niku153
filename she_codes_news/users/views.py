@@ -16,7 +16,9 @@ class CreateAccountView(CreateView):
 class ProfileView(generic.DetailView):
     model = CustomUser
     template_name = 'users/profile.html'
-    context_object_name = 'profile'
+    context_object_name = 'user'
+    # def get_success_url(self):
+    #     return reverse_lazy('users:profile', kwargs={'pk': self.object.id})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
