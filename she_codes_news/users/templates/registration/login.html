@@ -4,9 +4,11 @@
 <div class="login-wrapper">
 <h2>Login</h2>
 <form method="post">
+    <div class="special-form">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="accent-button">Login</button>
+    </div>
 </form>
 </div>
 {% endblock %}
