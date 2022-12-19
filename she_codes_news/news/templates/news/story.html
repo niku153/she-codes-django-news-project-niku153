@@ -1,8 +1,8 @@
-{% extends "base.html" %}{% load static %}{% block stylesheets %}<head>
+{% extends "base.html" %}{% load static %}{% block stylesheets %}
 {% endblock %}{% block content %}
 
 <div id="story-wrapper">
-  {% if story.author == user.username%}
+  {% if story.author == request.user %}
   <div class="story-buttons">
     <a href=" {% url 'news:editStory' story.id %}" class="accent-button">Edit Story</a>
     <a href=" {% url 'news:deleteStory' story.id %}" class="accent-button ">Delete Story</a>
@@ -19,11 +19,20 @@
     {% endif %}
     <p>{{ story.content|linebreaks }}</p>
   </div>
-  <a href="#" class="story-author">Written by {{ story.author }}</a>
+  <a href="{% url 'users:profile' story.author.id %}" class="story-author">Written by {{ story.author }}</a>
   <a href='{% url "news:category" story.category %}' class="category-button accent-button">{{ story.category }}</a>
 </div>
-Liked by {%for user in story.liked_by.add %}{{user.username}}{% endfor %}
-  <a href="{% url 'news:like' story.id %}"> like this story </a>
+<div class="likes-and-favourites">
+<p>Liked by {{ story.liked_by.count }}</p>
+<p>
+  {% if request.user.is_authenticated %}
+  <a href="{% url 'news:like' story.id %}">
+    {% if user in story.liked_by.all %}<i class="fa-solid fa-thumbs-up"></i> Liked{% else %}<i class="fa-regular fa-thumbs-up fa-large"></i> Like this post{% endif %}</a></p>
+<p><a href="{% url 'news:favourite_post' story.id %}">{% if user in story.favourite.all %}<i class="fa-solid fa-heart fa-large"></i> Added to favourites{% else %}<i class="fa-regular fa-heart fa-large"></i> Add to favourites{% endif %}</a></p>
+{% else %}
+<p>Log in to like or favourite this post</p>
+{% endif %}
+</div>
 <div class="comments-wrapper">
   <h3>Comments</h3>
   {% if not story.comments.all %}

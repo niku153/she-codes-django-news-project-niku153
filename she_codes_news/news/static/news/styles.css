@@ -147,6 +147,7 @@ h2{
     padding: 5px 8px;
     width: fit-content;
     border-radius: 8px;
+    color: var(--body-text-colour)
 }
 
 #all-stories .story-card .story-card-category:hover{
@@ -238,6 +239,11 @@ h2{
     margin-bottom: 40px;
 }
 
+.story-author:hover{
+    color: var(--accent-colour);
+    transition: 0.5s
+}
+
 .comments-wrapper{
     margin-top: 60px;
     padding: 0 200px;
@@ -277,11 +283,10 @@ form{
 }
 
 .form-item{
-    background-color:#1f2933 ;
+    /* background-color:#1f2933 ; */
     border: 1px solid var(--secondary-body-text-colour);
     border-radius: 4px;
     font-family: var(--body-font-family);
-    color: var(--body-text-colour);
     width: 400px;
     font-size: 17px;
 }
@@ -357,4 +362,136 @@ form{
     display: block;
     width: fit-content;
     margin-top: 50px;
+}
+
+
+
+.header-text{
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 100px;
+    font-size: 80px;
+    color: var(---background-colour);
+    font-family: var(--heading-font-family);
+}
+
+.header-text span{
+    opacity: 0;
+    text-shadow:
+    0 0 7px var(--heading-text-colour),
+    0 0 10px var(--heading-text-colour),
+    0 0 21px var(--heading-text-colour);
+    /* 0 0 42px var(--accent-colour),
+    0 0 82px var(--accent-colour),
+    0 0 92px var(--accent-colour),
+    0 0 102px var(--accent-colour),
+    0 0 151px var(--accent-colour); */
+}
+
+.header-text .word-1{
+    -webkit-animation: fadeIn linear 1s forwards;
+    animation-delay: 0.5s;
+}
+
+.header-text .word-2{
+    -webkit-animation: fadeIn linear 1s forwards;
+    animation-delay: 1s;
+}
+
+.header-text .word-3{
+    -webkit-animation: fadeIn linear 1s forwards;
+    animation-delay: 1.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.favourites-link{
+    text-align: center;
+    font-family: var(--body-font-family);
+    font-size: 20px;
+}
+
+.favourites-link a {
+    color: var(--body-text-colour)
+}
+
+.favourites-link a:visited{
+    color: var(--body-text-colour)
+}
+
+.favourites-link a:hover{
+    color: var(--accent-colour);
+    transition: 0.5s
+}
+
+.favourites-wrapper{
+    margin-top: 80px;
+}
+
+.favourites-wrapper .favourites-heading{
+    text-align: center;
+    font-family: var(--heading-font-family);
+    color: var(--heading-text-colour);
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+
+.likes-and-favourites{
+    text-align: center;
+    font-family: var(--body-font-family);
+    color: var(--body-text-colour);
+}
+
+.likes-and-favourites a{
+    color: var(--body-text-colour)
+}
+
+.category-heading{
+    margin-bottom: 40px;
+}
+
+.helptext{
+    display: block;
+    color: var(--secondary-body-text-colour);
+}
+
+.change-password-wrapper{
+    color: var(--body-text-colour);
+    font-family: var(--body-font-family);
+}
+
+.change-password-wrapper form{
+    background-color: var(--background-colour);
+}
+
+form ul{
+    list-style-type: none;
+    color: var(--secondary-body-text-colour);
+}
+
+.change-password-wrapper h2{
+    margin-bottom: 40px;
+}
+
+.back-up-text{
+    color: var(--body-text-colour);
+    font-family: var(--body-font-family);
+    text-align: center;
+}
+
+.login-wrapper p{
+    color: var(--body-text-colour);
+font-family: var(--body-font-family);
+font-size: 18px;
+margin: 50px;}
+
+form p{
+    margin: 30px
 }

@@ -14,26 +14,32 @@
         {% if not user.email %}
           <li><a href="#"><i class="fa-solid fa-envelope"></i></a></li>
         {% else %}
-          <li><a href="mailto:{{ user.email }}"><i class="fa-solid fa-envelope"></i></a></li>
+          <li><a href="mailto:{{ user.email }}" target="_blank"><i class="fa-solid fa-envelope"></i></a></li>
         {% endif %}
         {% if not user.linkedin %}
           <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
         {% else %}
-          <li><a href="{{ user.linkedin }}"><i class="fa-brands fa-linkedin"></i></a></li>
+          <li><a href="{{ user.linkedin }}" target="_blank"><i class="fa-brands fa-linkedin"></i></a></li>
         {% endif %}
         {% if not user.instagram %}
           <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
         {% else %}
-          <li><a href="{{ user.instagram }}"><i class="fa-brands fa-instagram"></i></a></li>
+          <li><a href="{{ user.instagram }}" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
         {% endif %}
         {% if not user.github %}
           <li><a href="#"><i class="fa-brands fa-github"></i></a></li>
         {% else %}
-          <li><a href="{{ user.github }}"><i class="fa-brands fa-github"></i></a></li>
+          <li><a href="{{ user.github }}" target="_blank"><i class="fa-brands fa-github"></i></a></li>
         {% endif %}
 
     </ul>
 </div>
+
+{% if request.user.id == user.id %}
+<div class="favourites-link">
+<a href="{% url 'news:favourite_post_list' %}">Favourites</a>
+</div>
+{% endif %}
 
 <div id="all-stories">
   <h4>Stories by {{user.name|capfirst}}</h4>
@@ -45,10 +51,10 @@
   <p>No stories are available.</p>
   {% endif %}
 </div>
-{#{% if user.profile == user.username %}#}
+{% if request.user.id == user.id %}
   <a href="{% url 'users:editAccount' request.user.id %}" class="accent-button">Edit Account</a>
-{#{% endif %}#}
+{% endif %}
 </div>
-
-
 {% endblock %}
+
+

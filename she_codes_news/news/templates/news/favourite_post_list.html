@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %} Favourites {% endblock %}
+{% block content %}
+
+<div class="favourites-wrapper">
+<div id="all-stories">
+<h3 class="favourites-heading">Your Favourites</h3>
+{% if favourite_posts %} 
+{% for story in favourite_posts%}
+{% include "news/storyCard.html" with story=story position=forloop.counter %}
+  {% endfor %} {% else %}
+  <p class="back-up-text">You don't currently have any favourite posts</p>
+  {% endif %}
+</div>
+</div>
+
+
+
+{% endblock %}

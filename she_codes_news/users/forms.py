@@ -8,7 +8,7 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = ['name', 'username', 'email', 'bio', 'profile_picture', 'linkedin', 'instagram', 'github',]
         widgets = {
-            'name': forms.TextInput(attrs={'class':'form-control form-item', 'placeholder': 'Enter your name',}),
+            'name': forms.TextInput(attrs={'class':'form-control form-item', 'placeholder': 'Enter your name'}),
             'username': forms.TextInput(attrs={'class':'form-control form-item', 'placeholder':'Enter a username'}),
             'email': forms.TextInput(attrs={'class': 'form-control form-item', 'placeholder': 'Enter your email'}),
             'bio': forms.Textarea(attrs={'class': 'form-control form-item', 'placeholder': 'Enter a bio'}),

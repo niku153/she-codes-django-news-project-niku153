@@ -24,7 +24,8 @@ class NewsStory(models.Model):
     content = models.TextField()
     image_url = models.URLField(null=True)
     category = models.CharField(max_length=200, default='uncategorised')
-    liked_by = models.ManyToManyField(CustomUser, related_name='liked_stories', blank=True, null=True )
+    liked_by = models.ManyToManyField(CustomUser, related_name='liked_stories', blank=True )
+    favourite = models.ManyToManyField(CustomUser, related_name='favourite', blank=True)
 
 
 class Comment(models.Model):

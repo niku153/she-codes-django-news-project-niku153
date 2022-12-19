@@ -1,8 +1,8 @@
 from django.views import generic
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy, reverse 
 from .models import NewsStory, Comment, Category
 from .forms import StoryForm, CommentForm
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 
@@ -19,12 +19,20 @@ class IndexView(generic.ListView):
         # context['old_stories'] = NewsStory.objects.all().order_by('pub_date') [:5]
         context['all_stories'] = NewsStory.objects.order_by('-pub_date')
 
+        # liked_story = get_object_or_404(NewsStory, id=self.kwargs['pk'])
+        # total_likes = liked_story.total_likes()
+        # context['total_likes'] = total_likes
+
         return context
 
 class StoryView(generic.DetailView):
     model = NewsStory
     template_name = 'news/story.html'
     context_object_name = 'story'
+    # is_favourite = False
+
+    # def story_detail(request, id):
+    #     if story.likes.filter(id=request.user.id).exists():
 
 class AddStoryView(generic.CreateView):
     model = NewsStory
@@ -37,6 +45,32 @@ class AddStoryView(generic.CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+# def favourite_post(request, id):
+#     story = get_object_or_404(NewsStory, id=id)
+#     if story.favourite.filter(id = request.user.id).exists():
+#         story.favourite.remove(request.user)
+#     else: 
+#         story.favourite.add(request.user)
+#     return redirect('news:story', pk=story.id)
+
+@login_required
+def favourite_post(request, pk):
+    story = get_object_or_404(NewsStory, pk=pk)
+    user = request.user
+    if story.favourite.filter(id=user.id).exists():
+        story.favourite.remove(user)
+    else:
+        story.favourite.add(user)
+    return redirect('news:story', pk=story.id)
+
+def favourite_post_list(request):
+    user = request.user
+    favourite_posts = user.favourite.all()
+    context = {
+        'favourite_posts': favourite_posts
+    }
+    return render(request, 'news/favourite_post_list.html', context)
+
 @login_required
 def like_post(request, pk):
     story = get_object_or_404(NewsStory, pk=pk)
@@ -44,7 +78,7 @@ def like_post(request, pk):
     if story.liked_by.filter(id=user.id).exists():
         story.liked_by.remove(user)
     else:
-        story.liked_by.all(user)
+        story.liked_by.add(user)
     return redirect('news:story', pk=story.id)
 
 
